@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Routes for BookController
+Route::resource('book', 'BookController');
+
+//Routes for BookController
+Route::resource('category', 'CategoryController');
+
+//Route for Filtered Books by Category
+Route::get('/book/category/{category_id}', 'bookCategoryController@getFilteredBooks')->name('book_category');
+
